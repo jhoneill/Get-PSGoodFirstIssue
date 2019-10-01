@@ -1,18 +1,6 @@
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName Repository -Value {"$(($this.repository_url -split '/')[-2])/$(($this.repository_url -split '/')[-1])" -replace '.*',"`e[92m`$0`e[39m"} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName "Title " -Value {$this.Title -replace '.*',"`e[96m`$0`e[39m"} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName Issue -Value {$this.number -replace '.*',"`e[92m`$0`e[39m"} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName Status -Value {$this.state -replace '.*',"`e[92m`$0`e[39m"} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName Link -Value {$this.html_url -replace '.*',"`e[96m`$0`e[39m"} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -MemberType ScriptProperty -MemberName "Assigned to" -Value {
-    if ($this.Assignee.login) {
-        $this.Assignee.login -replace '.*',"`e[92m`$0`e[39m"
-    } elseif ($this.Assignee) {
-        $this.Assignee -replace '.*',"`e[92m`$0`e[39m"
-    } else {
-        "Unassigned" -replace '.*',"`e[92m`$0`e[39m"
-    }
-} -Force
-Update-TypeData -TypeName PSGFI.GithubIssue -DefaultDisplayPropertySet "Title ", Repository, Issue, Status, "Assigned to", Link
+Update-FormatData -AppendPath (Join-Path -Path $PSScriptRoot -ChildPath "GitHubIssue.format.ps1xml")
+
+Update-TypeData -TypeName PSGFI.GithubIssue -DefaultDisplayPropertySet "title", "repository_url", "number", "state", "assignee", "html_url" -Force
 
 function Get-PSGoodFirstIssue {
     [CmdletBinding()]

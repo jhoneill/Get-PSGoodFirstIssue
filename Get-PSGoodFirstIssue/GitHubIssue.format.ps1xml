@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PSGFI.GithubIssues</Name><ViewSelectedBy><TypeName>PSGFI.GithubIssue</TypeName></ViewSelectedBy>
+            <ListControl>
+            <ListEntries>
+              <ListEntry>
+                <ListItems>
+                  <ListItem>
+                  <label>Title</label>
+                  <ScriptBlock>"`e[96m$($_.Title)`e[m"</ScriptBlock>
+                  </ListItem>
+                  <ListItem>
+                    <label>Repository</label>
+                    <ScriptBlock>$_.repository_url -replace "^.*?/([^/]+/[^/]+)$","`e[92m`$1`e[m" </ScriptBlock>
+                  </ListItem>
+                  <ListItem>
+                    <label>Issue</label>
+                    <ScriptBlock>"`e[92m$($_.Number)`e[m"</ScriptBlock>
+                  </ListItem>
+                  <ListItem>
+                    <label>Status</label>
+                    <ScriptBlock>"`e[92m$($_.state)`e[m"</ScriptBlock>
+                  </ListItem>
+                  <ListItem>
+                    <label>Assigned to</label>
+                    <ScriptBlock>
+                      if ($_.Assignee) {"`e[92m$($_.Assignee)`e[m"}
+                       else {           "`e[92mUnassigned`e[m"}
+                    </ScriptBlock>
+                  </ListItem>
+
+                  <ListItem>
+                    <label>Link</label>
+                    <ScriptBlock>"`e[96m$($_.html_url)`e[m"</ScriptBlock>
+                  </ListItem>
+                </ListItems>
+              </ListEntry>
+            </ListEntries>
+            </ListControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
